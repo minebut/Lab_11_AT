@@ -22,8 +22,12 @@ void forwardTraversal(Node* head)// Функція для прямого обходу списку
 }
 
 
-void backwardTraversal(Node* tail)// Функція для зворотного обходу списку 
-{
+void backwardTraversal(Node* head) {
+    
+    Node* tail = head;
+    while (tail->next != nullptr) {
+        tail = tail->next;
+    }
     Node* curr = tail;
     while (curr != nullptr) {
         cout << curr->data << " ";
@@ -32,18 +36,30 @@ void backwardTraversal(Node* tail)// Функція для зворотного обходу списку
     cout << endl;
 }
 
-Node* insertEnd(Node* head, int data) // Функція для вставки нового елемента в кінець списку
+void insertHead(Node* head, int data)
 {
+    Node* tail = head;
+    while (tail->next != nullptr) {
+        tail = tail->next;
+    }
+    Node* curr = tail;
+    while (curr != nullptr) {
+        cout << curr->data << " ";
+        curr = curr->prev;
+    }
+    cout << endl;
+}
+
+
+Node* insertEnd(Node* head, int data) {
     Node* new_node = new Node(data);
     if (head == nullptr) {
-       
         return new_node;
     }
     Node* curr = head;
     while (curr->next != nullptr) {
         curr = curr->next;
     }
-
     curr->next = new_node;
     new_node->prev = curr;
     return head;
@@ -77,10 +93,10 @@ int main() {
     printList(head);
 
     
-    head = insertEnd(head, 1);
-
+    head = insertEnd(head, 5);
+    head = insertHead(head, 1);
     
-    cout << "Після додавання одного елемента в список ";
+    cout << "Додавання одного елемента в список ";
     printList(head);
 
     
@@ -90,7 +106,7 @@ int main() {
     
     Node* tail = temp2;
     cout << "Обратний обхід списку ";
-    backwardTraversal(tail);
+    backwardTraversal(head);
 
     return 0;
 }
